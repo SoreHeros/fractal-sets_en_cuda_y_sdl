@@ -15,3 +15,7 @@ s: switches visualization modes (usually, Z0 is constant and C changes per pixel
 p: reset point path
 
 r: resets camera position, zoom and Z0 (or C)
+
+if you are feeling aventurous enought, you can change the function function(Z, C) to your liking, currently it does Z^2 + C, but you can use theese functions too!:
+
+mult_c, sum_c, log_c, pow_c (may be glithcy if exponent is not an integer)
