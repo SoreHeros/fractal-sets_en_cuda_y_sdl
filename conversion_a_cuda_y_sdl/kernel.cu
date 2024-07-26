@@ -24,6 +24,8 @@
 
 #define theta_k 0
 
+
+//iteration function (you can change it, use the funcions that are followed by a _c, like sum_c or mult_c)
 #define function(Z, C) sum_c(mult_c(Z, Z), C)
 
 //todo incluir método de newton
@@ -571,6 +573,8 @@ int main(int argc, char* argv[]){
 
     starting_iter_funct <<<(calculated_area.surface->w / BLOCK_SIDE + 1) * (calculated_area.surface->h / BLOCK_SIDE + 1), BLOCK_SIDE* BLOCK_SIDE >>> (gpu_mem.comp_cords, calculated_area.surface->w, calculated_area.surface->h, calculated_area.center, calculated_area.upp, Z0, state, 0, calculated_area.surface->h, 0, calculated_area.surface->w);
 
+    clock_t t = clock();
+    int count = 0;
 
     while (1) {
         SDL_Event ev;
@@ -817,6 +821,14 @@ int main(int argc, char* argv[]){
         // copy to window
         SDL_BlitSurface(calculated_area.surface, NULL, screen, NULL);
         SDL_UpdateWindowSurface(window);
+
+        //fps tracker
+        count++;
+        if (clock() - t >= CLOCKS_PER_SEC) {
+            printf("FPS: %i\n", count);
+            count = 0;
+            t = clock();
+        }
     }
 
 END:
